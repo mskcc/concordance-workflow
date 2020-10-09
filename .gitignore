@@ -1,0 +1,8 @@
+input
+pre-processing_output/
+nextflow
+gatk.jar
+.nextflow/
+*.bam
+*.bai
+normals*

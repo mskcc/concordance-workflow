@@ -6,3 +6,6 @@ gatk.jar
 *.bam
 *.bai
 normals*
+*.sif
+*__pycache__/*
+*.pyc

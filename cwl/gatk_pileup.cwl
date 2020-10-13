@@ -1,19 +1,7 @@
 cwlVersion: v1.0
 class: CommandLineTool
-baseCommand: ['java', '-Xmx12g', '-jar', '/usr/GenomeAnalysisTK.jar', '-T', 'Pileup', '-rf', 'DuplicateRead', '-rf', 'BadCigar', '--filter_reads_with_N_cigar', '--filter_mismatching_base_and_quals']
-# java \
-#   -Xmx12g \
-#   -jar "${params.gatk_jar}" \ # /usr/GenomeAnalysisTK.jar # <- this is the location inside the offical Docker container
-#   -T Pileup \
-#   -R "${params.ref_fasta}" \
-#   -I "${bam}" \
-#   -L "${params.conpair_markers_bed}" \
-#   -o "${output_file}" \
-#   -verbose \
-#   -rf DuplicateRead \
-#   -rf BadCigar \
-#   --filter_reads_with_N_cigar \
-#   --filter_mismatching_base_and_quals
+baseCommand: ['java', '-Xmx12g', '-jar', '/usr/GenomeAnalysisTK.jar', '-T', 'Pileup', '-rf', 'DuplicateRead', '-rf', 'BadCigar', '--filter_reads_with_N_cigar', '--filter_mismatching_base_and_quals', '-verbose']
+# /usr/GenomeAnalysisTK.jar # <- this is the location inside the offical Docker container
 
 requirements:
   DockerRequirement:

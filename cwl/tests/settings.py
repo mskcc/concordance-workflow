@@ -34,5 +34,6 @@ DATA_SETS = {
     "Proj_08390_G": {
         "BAM_DIR": os.path.join(FIXTURES_DIR, "Proj_08390_G", "bam"),
         "PILEUP_DIR": os.path.join(FIXTURES_DIR, "Proj_08390_G", "pileup"),
+        "LIKELIHOODS_DIR": os.path.join(FIXTURES_DIR, "Proj_08390_G", "likelihoods")
     }
 }

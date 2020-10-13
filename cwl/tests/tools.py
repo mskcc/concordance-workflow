@@ -55,3 +55,9 @@ def num_lines(filepath):
         for line in f:
             num += 1
     return(num)
+
+def num_fields(filepath, delimiter = '\t'):
+    with open(filepath) as f:
+        line = next(f)
+    parts = line.split(delimiter)
+    return(len(parts))

@@ -3,7 +3,7 @@ class: CommandLineTool
 baseCommand: ['make_genotype_likelihoods.py']
 
 requirements:
-  # InlineJavascriptRequirement: {}
+  InlineJavascriptRequirement: {}
   DockerRequirement:
     dockerPull: mskcc/conpair:dev
 
@@ -19,15 +19,8 @@ inputs:
       position: 2
       prefix: '--markers'
 
-# outputs: []
-
 outputs:
   output_file:
     type: File
     outputBinding:
-      glob:
-        valueFrom: ${ return inputs.pileup.basename.replace(".pileup", ".pickle") }
-#       outputEval: ${ path = require('path'); filename = path.parse(inputs.pileup).name; return filename }
-        # valueFrom: ${ path = require('path'); filename = path.parse(inputs.pileup).name; return filename }
-      # glob: $(inputs.pileup).pickle
-      # const path = require('path');
+      glob: ${ return inputs.pileup.basename.replace(".pileup", ".pickle") }

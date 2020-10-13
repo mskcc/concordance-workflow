@@ -1,11 +1,11 @@
 export SHELL:=/bin/bash
 .ONESHELL:
 export SHELLOPTS:=$(if $(SHELLOPTS),$(SHELLOPTS):)pipefail:errexit
-# export PATH:=$(CURDIR)/bin:$(PATH)
 UNAME:=$(shell uname)
 
-
-
+#
+# Singularity Containers
+#
 SOMALIER_SIF:=somalier_v0.2.12.sif
 $(SOMALIER_SIF):
 	unset SINGULARITY_CACHEDIR && \
@@ -32,7 +32,8 @@ singularity-pull-GATK: $(GATK_SIF)
 install: singularity-pull-somalier singularity-pull-Conpair singularity-pull-GATK
 
 bash:
-	module load singularity/3.3.0
+	module load singularity/3.3.0 && \
+	module load python/3.7.1 && \
 	bash
 
 test:

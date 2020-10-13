@@ -41,14 +41,45 @@ class TestLikelihoodsCWL(unittest.TestCase):
                     'location': 'file://' + os.path.join(output_dir, "Sample23.pickle"),
                     'basename': "Sample23.pickle",
                     'class': 'File',
-                    'checksum': 'sha1$71f0e0972c0c649590fe73caddae63506e8b8a80',
-                    'size': 124590,
+                    'checksum': 'sha1$59d818175335c4a82277cc7d5146fe84aaa38ed8',
+                    'size': 185187,
                     'path': os.path.join(output_dir, "Sample23.pickle")
                     }
                 }
             self.assertDictEqual(output_json, expected_output)
-            pileup_path = os.path.join(output_dir, "Sample23.pickle")
-            shutil.copyfile(pileup_path, "Sample23.pickle")
+
+    def test_likelihoods2(self):
+        """
+        """
+        self.maxDiff = None
+        input_json = {
+            "pileup": {
+                "path": os.path.join(DATA_SETS['Proj_08390_G']['PILEUP_DIR'], "Sample24.pileup"),
+                "class": "File"
+            },
+            "markers": {
+                "path": CONPAIR_MARKERS_TXT,
+                "class": "File"
+            }
+        }
+        with TemporaryDirectory() as tmpdir:
+            output_json, output_dir = run_cwl(
+                testcase = self,
+                tmpdir = tmpdir,
+                input_json = input_json,
+                cwl_file = cwl_file)
+
+            expected_output = {
+                'output_file': {
+                    'location': 'file://' + os.path.join(output_dir, "Sample24.pickle"),
+                    'basename': "Sample24.pickle",
+                    'class': 'File',
+                    'checksum': 'sha1$b398139ba15938209dd506d4c223fb991450fa68',
+                    'size': 184852,
+                    'path': os.path.join(output_dir, "Sample24.pickle")
+                    }
+                }
+            self.assertDictEqual(output_json, expected_output)
 
 
 if __name__ == "__main__":

@@ -34,6 +34,7 @@ DATA_SETS = {
     "Proj_08390_G": {
         "BAM_DIR": os.path.join(FIXTURES_DIR, "Proj_08390_G", "bam"),
         "PILEUP_DIR": os.path.join(FIXTURES_DIR, "Proj_08390_G", "pileup"),
-        "LIKELIHOODS_DIR": os.path.join(FIXTURES_DIR, "Proj_08390_G", "likelihoods")
+        "LIKELIHOODS_DIR": os.path.join(FIXTURES_DIR, "Proj_08390_G", "likelihoods"), # Conpair pileup likelihoods .pickle files
+        "GENOTYPES_DIR": os.path.join(FIXTURES_DIR, "Proj_08390_G", "extracted_genotype") # Somalier extracted genotype files
     }
 }

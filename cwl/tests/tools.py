@@ -22,7 +22,7 @@ def run_command(args):
     proc_stderr = proc_stderr.strip()
     return(returncode, proc_stdout, proc_stderr)
 
-def run_cwl(testcase, tmpdir, input_json, cwl_file, CWL_ARGS = CWL_ARGS):
+def run_cwl(testcase, tmpdir, input_json, cwl_file, CWL_ARGS = CWL_ARGS, print_stdout = False, print_command = False, check_returncode = True):
     input_json_file = os.path.join(tmpdir, "input.json")
     with open(input_json_file, "w") as json_out:
         json.dump(input_json, json_out)
@@ -39,12 +39,19 @@ def run_cwl(testcase, tmpdir, input_json, cwl_file, CWL_ARGS = CWL_ARGS):
         "--cachedir", cache_dir,
         cwl_file, input_json_file
         ]
+    if print_command:
+        print(command)
+
     returncode, proc_stdout, proc_stderr = run_command(command)
+
+    if print_stdout:
+        print(proc_stdout)
 
     if returncode != 0:
         print(proc_stderr)
 
-    testcase.assertEqual(returncode, 0)
+    if check_returncode:
+        testcase.assertEqual(returncode, 0)
 
     output_json = json.loads(proc_stdout)
     return(output_json, output_dir)

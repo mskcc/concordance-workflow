@@ -35,9 +35,6 @@ class TestSomalierConcordanceCWL(unittest.TestCase):
                 }
             }
 
-            CWL_ARGS.append('--debug')
-            CWL_ARGS.append('--js-console')
-
             output_json, output_dir = run_cwl(
                 testcase = self,
                 tmpdir = tmpdir,

@@ -1,6 +1,7 @@
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: Workflow
+
 inputs:
   tumor_bam: # should have an adjacent .bai file, e.g. sample.bam, sample.bai
     type: File

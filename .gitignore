@@ -1,6 +1,6 @@
 input
 pre-processing_output/
-nextflow
+nextflow/nextflow
 gatk.jar
 .nextflow/
 *.bam
@@ -9,3 +9,10 @@ normals*
 *.sif
 *__pycache__/*
 *.pyc
+*.nextflow.log
+*/*.nextflow.log
+*.nextflow.log*
+*/output*
+*/work/*
+nextflow/pileup_compare/
+nextflow/fixtures_pre_processing/

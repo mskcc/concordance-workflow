@@ -16,3 +16,6 @@ normals*
 */work/*
 nextflow/pileup_compare/
 nextflow/fixtures_pre_processing/
+nextflow/*.html*
+nextflow/*.txt*
+nextflow/dmp-cohort

@@ -1,7 +1,7 @@
 process gatk_pileup {
     // make a GATK pileup from a bam file
     if(params.store_dir == true){
-        storeDir "${params.output_dir}/pileup/${params.markers_name}"
+        storeDir "${params.output_dir}/${params.markers_name}/pileup"
     }else{
         publishDir "${params.output_dir}/pileup", mode: 'copy'
     }

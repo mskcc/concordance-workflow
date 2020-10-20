@@ -1,7 +1,7 @@
 process conpair_likelihoods {
     // make a Python Pickle of the genotype likelihoods for faster loading in Conpair
     if (params.store_dir == true) {
-        storeDir "${params.output_dir}/likelihoods/${params.markers_name}"
+        storeDir "${params.output_dir}/${params.markers_name}/likelihoods"
     } else {
         publishDir "${params.output_dir}/likelihoods", mode: 'copy'
     }

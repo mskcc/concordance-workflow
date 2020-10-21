@@ -6,7 +6,11 @@ process somalier_concordance {
     tuple path(sample_genotype), path(comparison_genotypes_dir)
 
     output:
-    tuple path("${output_groups}"), path("${output_html}"), path("${output_pairs}"), path("${output_samples}")
+    path "${output_groups}", emit: groups
+    path "${output_html}", emit: html
+    path "${output_pairs}", emit: pairs
+    path "${output_samples}", emit: samples
+    // tuple path("${output_groups}"), path("${output_html}"), path("${output_pairs}"), path("${output_samples}")
 
     script:
     output_prefix = "${sample_genotype}".replaceFirst(/.somalier$/, "")

@@ -61,6 +61,13 @@ workflow {
         return [ file("${bam}"), file("${bai}") ]
         } | set { samples_bams_bais }
 
+    // run the workflow on all the samples
     tumor_concordance(samples_bams_bais, conpair_normals, somalier_normals, conpair_markers_txt, somalier_sites)
+
+    // aggregate some file outputs
+    tumor_concordance.out.conpair_tsv.collectFile(name: 'conpair_concordance.tsv', storeDir: "${params.output_dir}", keepHeader: true)
+    tumor_concordance.out.somalier_groups.collectFile(name: 'somalier_groups.tsv', storeDir: "${params.output_dir}")
+    tumor_concordance.out.somalier_pairs.collectFile(name: 'somalier_pairs.tsv', storeDir: "${params.output_dir}", keepHeader: true)
+    tumor_concordance.out.somalier_samples.collectFile(name: 'somalier_samples.tsv', storeDir: "${params.output_dir}", keepHeader: true)
 
 }

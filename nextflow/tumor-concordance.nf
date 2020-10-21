@@ -39,6 +39,14 @@ workflow tumor_concordance {
 
         // somalier
         sample_bam_bai.combine(somalier_sites) | somalier_extract | combine(stage_normals.out.somalier_dir) | somalier_concordance
+
+    emit:
+        somalier_groups = somalier_concordance.out.groups
+        somalier_html = somalier_concordance.out.html
+        somalier_pairs = somalier_concordance.out.pairs
+        somalier_samples = somalier_concordance.out.samples
+        conpair_tsv = conpair_concordance.out.concordance_vals
+
 }
 
 workflow {

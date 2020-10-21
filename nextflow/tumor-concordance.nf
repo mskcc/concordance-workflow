@@ -14,52 +14,6 @@ include { stage_normals } from './modules/stage_normals.nf'
 include { somalier_extract } from './modules/somalier_extract.nf'
 include { somalier_concordance } from './modules/somalier_concordance.nf'
 
-log.info("----------------")
-log.info("workflow params:")
-log.info("${params}")
-log.info("----------------")
-
-//
-// Check the Conpair and Somalier cohort items to see if they are single files or dir of files
-//
-conpair_cohort_obj = new File("${params.conpair_cohort}");
-conpair_cohort_exists = conpair_cohort_obj.exists();
-conpair_cohort_isDir = conpair_cohort_obj.isDirectory();
-conpair_cohort_isFile = conpair_cohort_obj.isFile();
-
-if(! conpair_cohort_exists){
-    log.error("No such file or directory: ${params.conpair_cohort}")
-    exit 1
-}
-if(conpair_cohort_isDir){
-    conpair_normals = Channel.fromPath("${params.conpair_cohort}/*{.pileup,.pickle}").collect()
-}
-if(conpair_cohort_isFile){
-    conpair_normals = Channel.fromPath("${params.conpair_cohort}")
-}
-
-somalier_cohort_obj = new File("${params.somalier_cohort}");
-somalier_cohort_exists = somalier_cohort_obj.exists();
-somalier_cohort_isDir = somalier_cohort_obj.isDirectory();
-somalier_cohort_isFile = somalier_cohort_obj.isFile();
-
-if(! somalier_cohort_exists){
-    log.error("No such file or directory: ${params.somalier_cohort}")
-    exit 1
-}
-if(somalier_cohort_isDir){
-    somalier_normals = Channel.fromPath("${params.somalier_cohort}/*.somalier").collect()
-}
-if(somalier_cohort_isFile){
-    somalier_normals = Channel.fromPath("${params.somalier_cohort}")
-}
-
-
-
-sample_bam_bai = Channel.from([ file("${params.bam}"), file("${params.bai}") ]).collect()
-conpair_markers_txt = Channel.fromPath("${params.conpair_markers_txt}")
-somalier_sites = Channel.fromPath("${params.somalier_sites}")
-
 workflow tumor_concordance {
     // sub-workflow unit
     take:
@@ -89,5 +43,49 @@ workflow tumor_concordance {
 
 workflow {
     // main workflow
+    log.info("----------------")
+    log.info("tumor-concordance workflow params:")
+    log.info("${params}")
+    log.info("----------------")
+
+    //
+    // Check the Conpair and Somalier cohort items to see if they are single files or dir of files
+    //
+    conpair_cohort_obj = new File("${params.conpair_cohort}");
+    conpair_cohort_exists = conpair_cohort_obj.exists();
+    conpair_cohort_isDir = conpair_cohort_obj.isDirectory();
+    conpair_cohort_isFile = conpair_cohort_obj.isFile();
+
+    if(! conpair_cohort_exists){
+        log.error("No such file or directory: ${params.conpair_cohort}")
+        exit 1
+    }
+    if(conpair_cohort_isDir){
+        conpair_normals = Channel.fromPath("${params.conpair_cohort}/*{.pileup,.pickle}").collect()
+    }
+    if(conpair_cohort_isFile){
+        conpair_normals = Channel.fromPath("${params.conpair_cohort}")
+    }
+
+    somalier_cohort_obj = new File("${params.somalier_cohort}");
+    somalier_cohort_exists = somalier_cohort_obj.exists();
+    somalier_cohort_isDir = somalier_cohort_obj.isDirectory();
+    somalier_cohort_isFile = somalier_cohort_obj.isFile();
+
+    if(! somalier_cohort_exists){
+        log.error("No such file or directory: ${params.somalier_cohort}")
+        exit 1
+    }
+    if(somalier_cohort_isDir){
+        somalier_normals = Channel.fromPath("${params.somalier_cohort}/*.somalier").collect()
+    }
+    if(somalier_cohort_isFile){
+        somalier_normals = Channel.fromPath("${params.somalier_cohort}")
+    }
+
+    sample_bam_bai = Channel.from([ file("${params.bam}"), file("${params.bai}") ]).collect()
+    conpair_markers_txt = Channel.fromPath("${params.conpair_markers_txt}")
+    somalier_sites = Channel.fromPath("${params.somalier_sites}")
+
     tumor_concordance(sample_bam_bai, conpair_normals, somalier_normals, conpair_markers_txt, somalier_sites)
 }

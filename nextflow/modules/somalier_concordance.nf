@@ -6,11 +6,20 @@ process somalier_concordance {
     tuple path(sample_genotype), path(comparison_genotypes_dir)
 
     output:
-    path "somalier*"
+    tuple path("${output_groups}"), path("${output_html}"), path("${output_pairs}"), path("${output_samples}")
 
     script:
+    output_prefix = "${sample_genotype}".replaceFirst(/.somalier$/, "")
+    output_groups = "${output_prefix}.groups.tsv"
+    output_html = "${output_prefix}.html"
+    output_pairs = "${output_prefix}.pairs.tsv"
+    output_samples = "${output_prefix}.samples.tsv"
     """
-    "${params.somalier_bin}" relate "${sample_genotype}" "${comparison_genotypes_dir}/*.somalier"
+    somalier relate \
+    --output-prefix "${output_prefix}" \
+    "${sample_genotype}" \
+    "${comparison_genotypes_dir}/*.somalier"
     """
 }
 // somalier relate -g sample_pairing.csv sketch_files/*.somalier
+// "${params.somalier_bin}"

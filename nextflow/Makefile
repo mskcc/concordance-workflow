@@ -9,7 +9,7 @@ install: ./nextflow
 
 run:
 	if module avail java/jdk1.8.0_202 1&>/dev/null; then module load java/jdk1.8.0_202; fi
-	./nextflow run main.nf --compare_against normals/ --bam sample.bam
+	./nextflow run tumor-concordance.nf --conpair_cohort normals_conpair --somalier_cohort normals_somalier --bam sample.bam
 
 bash:
 	if module avail java/jdk1.8.0_202 1&>/dev/null; then module load java/jdk1.8.0_202; fi

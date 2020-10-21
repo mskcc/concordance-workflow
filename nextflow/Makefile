@@ -13,7 +13,7 @@ run:
 
 run-batch:
 	if module avail java/jdk1.8.0_202 1&>/dev/null; then module load java/jdk1.8.0_202; fi
-	./nextflow run batch-concordance.nf --conpair_cohort normals_conpair --somalier_cohort normals_somalier --tumor_list tumor_list.txt
+	./nextflow run -resume batch-concordance.nf --conpair_cohort normals_conpair --somalier_cohort normals_somalier --tumor_list tumor_list.txt
 
 bash:
 	if module avail java/jdk1.8.0_202 1&>/dev/null; then module load java/jdk1.8.0_202; fi

@@ -7,6 +7,7 @@ params.conpair_cohort = "normals_conpair" // file or directory of files to run t
 params.somalier_cohort = "normals_somalier" // file or directory of files to run the comparison against
 
 include { tumor_concordance } from './tumor-concordance.nf'
+include { conpair_filter_concordance } from './modules/conpair_filter_concordance.nf'
 
 workflow {
     // main workflow
@@ -65,9 +66,12 @@ workflow {
     tumor_concordance(samples_bams_bais, conpair_normals, somalier_normals, conpair_markers_txt, somalier_sites)
 
     // aggregate some file outputs
-    tumor_concordance.out.conpair_tsv.collectFile(name: 'conpair_concordance.tsv', storeDir: "${params.output_dir}", keepHeader: true)
     tumor_concordance.out.somalier_groups.collectFile(name: 'somalier_groups.tsv', storeDir: "${params.output_dir}")
     tumor_concordance.out.somalier_pairs.collectFile(name: 'somalier_pairs.tsv', storeDir: "${params.output_dir}", keepHeader: true)
     tumor_concordance.out.somalier_samples.collectFile(name: 'somalier_samples.tsv', storeDir: "${params.output_dir}", keepHeader: true)
 
+    tumor_concordance.out.conpair_tsv.collectFile(name: 'conpair_concordance.tsv', storeDir: "${params.output_dir}", keepHeader: true).set { conpair_concordances_tsv }
+
+    // also filter the Conpair table
+    conpair_filter_concordance(conpair_concordances_tsv)
 }

@@ -19,7 +19,7 @@ singularity-pull-Conpair:
 	if [ ! -e "$(SINGULARITY_SIF)" ]; then
 	unset SINGULARITY_CACHEDIR && \
 	module load singularity/3.3.0 && \
-	singularity pull --force --name "$(SINGULARITY_SIF)" docker://mskcc/conpair:dev
+	singularity pull --force --name "$(SINGULARITY_SIF)" docker://mskcc/conpair:1.0.1
 	fi
 
 GATK_SIF:=gatk3_3.8-1.sif

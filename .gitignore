@@ -19,3 +19,5 @@ nextflow/fixtures_pre_processing/
 nextflow/*.html*
 nextflow/*.txt*
 nextflow/dmp-cohort
+conda/
+concordance-workflow.code-workspace

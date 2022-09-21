@@ -39,4 +39,4 @@ install: conda
 
 
 # https://nf-co.re/tools/#creating-a-new-pipeline
-# $ nf-core create --name concordance -d "concordance workflow" -a "Stephen Kelly" --no-git
+# $ nf-core create --name concordance -d "concordance workflow" -a "Stephen Kelly"
